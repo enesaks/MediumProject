@@ -1,0 +1,34 @@
+using DependencyInjProject.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+//Dependency Injection 
+builder.Services.AddTransient<IGuidGeneratorTransient, GuidGeneratorTransient>();
+builder.Services.AddSingleton<IGuidGeneratorSingleton, GuidGeneratorSingleton>();
+builder.Services.AddScoped<IGuidGeneratorScoped, GuidGeneratorScoped>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();

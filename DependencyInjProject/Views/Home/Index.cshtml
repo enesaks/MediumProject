@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Dependency Injection Farkları</h2>
+<p><strong>Transient GUID:</strong> @ViewBag.TransientGuid</p>
+<p><strong>Scoped GUID:</strong> @ViewBag.ScopedGuid</p>
+<p><strong>Singleton GUID:</strong> @ViewBag.SingletonGuid</p>
+
+
+<!-- Sayfayı yenilemek için bir buton -->
+<form method="get" action="@Url.Action("Index")">
+    <button type="submit">Sayfayı Yenile</button>
+</form>
