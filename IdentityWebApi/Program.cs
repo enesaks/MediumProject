@@ -15,11 +15,6 @@ builder.Services.AddControllers(); // Controller servisini ekledik
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<BookContext>(options => options.UseSqlServer(connectionString));
 
-//Identity
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<BookContext>();
-
-builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -31,20 +26,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.MapControllers();
 
 app.UseHttpsRedirection();
-
-app.MapIdentityApi<IdentityUser>();
-
-app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager) =>
-{
-    await signInManager.SignOutAsync();
-    return Results.Ok(new { message = "Başarıyla çıkış yapıldı." });
-}).RequireAuthorization();
 
 app.Run();
 

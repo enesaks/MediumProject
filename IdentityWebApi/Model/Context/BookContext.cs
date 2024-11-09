@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IdentityWebApi.Model.Context;
 
-public class BookContext : IdentityDbContext<IdentityUser>
+public class BookContext : DbContext
 {
     public BookContext(DbContextOptions<BookContext> options) : base(options)
     {
